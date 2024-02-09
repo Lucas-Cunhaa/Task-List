@@ -11,7 +11,8 @@ document.addEventListener("DOMContentLoaded", function () {
   inputTask.addEventListener("keypress", (e) => {
     if (e.keyCode === 13) {
       if (!inputTask.value) return;
-      makeTask(inputTask.value);
+      makeTask(inputTask.value,  date() );
+      date();
       clearInput();
     }
   });
@@ -29,19 +30,31 @@ document.addEventListener("DOMContentLoaded", function () {
     clearButton.setAttribute("title", "Delete This Task");
     li.appendChild(clearButton);
   };
-  const makeTask = (task) => {
+
+  const date = () => {
+    const data = new Date();
+    let day = data.getDate();
+    let month = data.getMonth() + 1;
+    let year = data.getFullYear();
+    const dateFormat = `0${day}/0${month}/${year}`;
+    return dateFormat
+  
+  };
+  const makeTask = (task,date) => {
     const li = createList();
-    li.innerText = task;
+    li.innerText = task+ " "+ " " + date
     tasks.appendChild(li);
     clearInput();
     createClearButton(li);
     saveTasks();
   };
+
   addTask.addEventListener("click", (e) => {
     if (!inputTask.value) return;
-    makeTask(inputTask.value);
+    makeTask(inputTask.value,  date() );
     clearInput();
   });
+
   document.addEventListener("click", function (e) {
     const el = e.target;
     if (el.classList.contains("delete")) {
@@ -69,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const listOfTasks = JSON.parse(tasks);
 
     for (let task of listOfTasks) {
-      makeTask(task);
+      makeTask(task, date());
     }
   };
   addSaveTasks();

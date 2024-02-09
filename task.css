@@ -74,3 +74,7 @@ form button:hover{
     flex-direction: column;
     
 }
+.date{
+    font-size: 10;
+    color: rgb(126, 126, 126);
+}
